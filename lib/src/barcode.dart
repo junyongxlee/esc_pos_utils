@@ -241,20 +241,34 @@ class Barcode {
   /// {C = QRCode type C
   /// barcodeData ex.: "{A978020137962".split("");
   Barcode.code128(List<dynamic> barcodeData) {
+    // final k = barcodeData.length;
+    // if (k < 2) {
+    //   throw Exception('Barcode: Wrong data range');
+    // }
+
+    // final regex = RegExp(r'^\{[A-C][\x00-\x7F]+$');
+    // final bool isDataValid = regex.hasMatch(barcodeData.join());
+
+    // if (!isDataValid) {
+    //   throw Exception('Barcode: Data is not valid');
+    // }
+
+    // _type = BarcodeType.code128;
+    // _data = _convertData(barcodeData);
+
     final k = barcodeData.length;
-    if (k < 2) {
+    if (k < 1) {
       throw Exception('Barcode: Wrong data range');
     }
 
-    // final regex = RegExp(r'^\{[A-C][\x00-\x7F]+$');
     final regex = RegExp(r'^[0-9A-Z \$\%\*\+\-\.\/]$');
-    final bool isDataValid = regex.hasMatch(barcodeData.join());
-
+    final bool isDataValid =
+        barcodeData.every((dynamic d) => regex.hasMatch(d.toString()));
     if (!isDataValid) {
       throw Exception('Barcode: Data is not valid');
     }
 
-    _type = BarcodeType.code128;
+    _type = BarcodeType.code39;
     _data = _convertData(barcodeData);
   }
 
