@@ -268,7 +268,7 @@ class Barcode {
       throw Exception('Barcode: Data is not valid');
     }
 
-    _type = BarcodeType.code39;
+    _type = BarcodeType.code128;
     _data = _convertData(barcodeData);
   }
 
